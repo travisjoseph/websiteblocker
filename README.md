@@ -1,1 +1,1 @@
-# webstieblocker
+# websiteblocker
