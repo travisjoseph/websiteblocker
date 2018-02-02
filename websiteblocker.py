@@ -1,4 +1,5 @@
 import time
+import backend
 from datetime import datetime as dt
 from tkinter import *
 import gui
@@ -29,64 +30,59 @@ StartTime.set(time_list[0])
 om_StartTime = OptionMenu(window, StartTime, *time_list)
 om_StartTime.grid(row=0, column=1)
 lbl_EndTime=Label(window, text="End Time: ")
-lbl_EndTime.grid(row=0, column=3)
+lbl_EndTime.grid(row=0, column=2)
 EndTime = StringVar()
 EndTime.set(time_list[0])
 om_EndTime = OptionMenu(window, EndTime, *time_list)
-om_EndTime.grid(row=0, column=4)
+om_EndTime.grid(row=0, column=3)
 
 #Blocked address list
 lbl_blocked=Label(window, text="Blocked Website List")
-lbl_blocked.grid(row=1, column=0, columnspan=3)
+lbl_blocked.grid(row=1, column=0, columnspan=4)
 siteList=StringVar()
 lst_siteList=Listbox(window, width=25, height=5)
-lst_siteList.grid(row=2, column=1, rowspan=3, columnspan=2)
+lst_siteList.grid(row=2, column=1, rowspan=2, columnspan=3)
 scrl_addressList=Scrollbar(window)
-scrl_addressList.grid(row=2, column=0, rowspan=3)
+scrl_addressList.grid(row=2, column=0, rowspan=2)
 lst_siteList.configure(yscrollcommand=scrl_addressList.set)
 scrl_addressList.configure(command=lst_siteList.yview)
 
-#Add address to list
-lbl_redirect=Label(window, text="Redirect Address: ")
-lbl_redirect.grid(row=2, column=3)
-redirectAddress=StringVar()
-ent_redirect=Entry(window, textvariable=redirectAddress)
-ent_redirect.grid(row=2, column=4)
-btn_addAddress=Button(window, text="Add Address")
-btn_addAddress.grid(row=2, column=5)
-
+#List Actions
+address=StringVar()
+ent_address=Entry(window, textvariable=address)
+ent_address.grid(row=4, column=0, rowspan=2, columnspan=3)
+#Add Address
+btn_addAddress=Button(window, text="Add")
+btn_addAddress.grid(row=6, column=0, columnspan=3)
 #Remove Entry
-btn_removeEntry=Button(window, text="Remove Address")
-btn_removeEntry.grid(row=3, column=3)
+btn_removeEntry=Button(window, text="Delete")
+btn_removeEntry.grid(row=5, column=3)
+#Search for website
+btn_searchEntry=Button(window, text="Search")
+btn_searchEntry.grid(row=4, column=3)
+
+
 #Run Script
 btn_start=Button(window, text="Run")
-btn_start.grid(row=4, column=5)
+btn_start.grid(row=6, column=3)
 window.mainloop()
 
-
-#   --------
-# //BACK END\\
-#   --------
-
-
-
-
-while True:
-    if dt(dt.now().year,dt.now().month,dt.now().day, 15) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day, 20):
-        with open(tmpHosts, 'r+') as file:
-            content=file.read()
-            for website in website_list:
-                if website in content:
-                    pass
-                else:
-                    file.write(redirect + " " + website + "\n")
-        time.sleep(300)
-    else:
-        with open(tmpHosts, 'r+') as file:
-            content=file.readlines()
-            file.seek(0)
-            for line in content:
-                if not any(website in line for website in website_list):
-                    file.write(line)
-            file.truncate()
-        time.sleep(300)
+# while True:
+#     if dt(dt.now().year,dt.now().month,dt.now().day, 15) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day, 20):
+#         with open(tmpHosts, 'r+') as file:
+#             content=file.read()
+#             for website in website_list:
+#                 if website in content:
+#                     pass
+#                 else:
+#                     file.write(redirect + " " + website + "\n")
+#         time.sleep(300)
+#     else:
+#         with open(tmpHosts, 'r+') as file:
+#             content=file.readlines()
+#             file.seek(0)
+#             for line in content:
+#                 if not any(website in line for website in website_list):
+#                     file.write(line)
+#             file.truncate()
+#         time.sleep(300)
