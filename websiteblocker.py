@@ -39,6 +39,10 @@ lbl_blocked.grid(row=1, column=0)
 lbl_redirect=Label(window, text="Redirect Address: ")
 lbl_redirect.grid(row=1, column=2)
 
+redirectAddress=StringVar()
+ent_redirect=Entry(window, textvariable=redirectAddress)
+ent_redirect.grid(row=1, column=3)
+
 siteList=StringVar()
 lst_siteList=Listbox(window, height=6, width=30)
 lst_siteList.grid(row=2, column=0, rowspan=3, columnspan=3)
