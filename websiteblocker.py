@@ -19,35 +19,50 @@ time_list=['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00',
 window = Tk()
 window.title("Website Blocker")
 
+#Start and end times
 lbl_StartTime=Label(window, text="Start Time: ")
 lbl_StartTime.grid(row=0, column=0)
 StartTime = StringVar()
 StartTime.set(time_list[0])
 om_StartTime = OptionMenu(window, StartTime, *time_list)
 om_StartTime.grid(row=0, column=1)
-
 lbl_EndTime=Label(window, text="End Time: ")
-lbl_EndTime.grid(row=0, column=2)
+lbl_EndTime.grid(row=0, column=3)
 EndTime = StringVar()
 EndTime.set(time_list[0])
 om_EndTime = OptionMenu(window, EndTime, *time_list)
-om_EndTime.grid(row=0, column=3)
+om_EndTime.grid(row=0, column=4)
 
+#Blocked address list
 lbl_blocked=Label(window, text="Blocked Website List")
-lbl_blocked.grid(row=1, column=0)
+lbl_blocked.grid(row=1, column=0, columnspan=3)
+siteList=StringVar()
+lst_siteList=Listbox(window, width=25, height=5)
+lst_siteList.grid(row=2, column=1, rowspan=3, columnspan=2)
+scrl_addressList=Scrollbar(window)
+scrl_addressList.grid(row=2, column=0, rowspan=3)
+lst_siteList.configure(yscrollcommand=scrl_addressList.set)
+scrl_addressList.configure(command=lst_siteList.yview)
 
+#Add address to list
 lbl_redirect=Label(window, text="Redirect Address: ")
-lbl_redirect.grid(row=1, column=2)
-
+lbl_redirect.grid(row=2, column=3)
 redirectAddress=StringVar()
 ent_redirect=Entry(window, textvariable=redirectAddress)
-ent_redirect.grid(row=1, column=3)
+ent_redirect.grid(row=2, column=4)
+btn_addAddress=Button(window, text="Add Address")
+btn_addAddress.grid(row=2, column=5)
 
-siteList=StringVar()
-lst_siteList=Listbox(window, height=6, width=30)
-lst_siteList.grid(row=2, column=0, rowspan=3, columnspan=3)
-
+#Remove Entry
+btn_removeEntry=Button(window, text="Remove Address")
+btn_removeEntry.grid(row=3, column=3)
+#Run Script
+btn_start=Button(window, text="Run")
+btn_start.grid(row=4, column=5)
 window.mainloop()
+
+
+
 
 
 
