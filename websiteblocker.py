@@ -2,7 +2,6 @@ import time
 import backend
 from datetime import datetime as dt
 from tkinter import *
-import gui
 
 tmpHosts="hosts"
 #hostsPath="/etc/hosts"
@@ -53,7 +52,10 @@ ent_address=Entry(window, textvariable=address)
 ent_address.grid(row=4, column=0, rowspan=2, columnspan=3)
 #Add Address
 btn_addAddress=Button(window, text="Add")
-btn_addAddress.grid(row=6, column=0, columnspan=3)
+btn_addAddress.grid(row=6, column=0, columnspan=2)
+#Update Address
+btn_addAddress=Button(window, text="Update")
+btn_addAddress.grid(row=6, column=2)
 #Remove Entry
 btn_removeEntry=Button(window, text="Delete")
 btn_removeEntry.grid(row=5, column=3)

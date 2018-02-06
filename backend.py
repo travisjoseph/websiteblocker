@@ -6,14 +6,13 @@ def connect():
     cur.execute("CREATE TABLE IF NOT EXISTS address (id INTEGER PRIMARY KEY, website text)")
     conn.commit()
     conn.close()
-connect()
+
 
 def insert(adrs):
     conn=sqlite3.connect("addresses.db")
     cur=conn.cursor()
     cur.execute("INSERT INTO address VALUES(NULL,?)",(adrs,))
-    conn.commit()
-    conn.close()
+
 
 def view():
     conn=sqlite3.connect("addresses.db")
@@ -27,7 +26,26 @@ def search(adrs):
     conn=sqlite3.connect("addresses.db")
     cur=conn.cursor()
     cur.execute("SELECT * FROM address WHERE website=?",(adrs,))
+    rows=cur.fetchall()
+    conn.close()
+    return rows
+
+def delete(id):
+    conn=sqlite3.connect("addresses.db")
+    cur=conn.cursor()
+    cur.execute("DELETE FROM  address WHERE id=?",(id,))
+    conn.commit()
+    conn.close()
+
+def update(id, adrs):
+    conn=sqlite3.connect("addresses.db")
+    cur=conn.cursor()
+    cur.execute("UPDATE address SET website=? WHERE id=?",(adrs, id))
+    conn.commit()
+    conn.close()
 
 
-insert("www.facebook.com")
+connect()
+update(1, "www.twitter.com")
 print(view())
+print(search("www.reddit.com"))
