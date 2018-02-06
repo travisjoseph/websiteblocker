@@ -12,6 +12,8 @@ def insert(adrs):
     conn=sqlite3.connect("addresses.db")
     cur=conn.cursor()
     cur.execute("INSERT INTO address VALUES(NULL,?)",(adrs,))
+    conn.commit()
+    conn.close()
 
 
 def view():
@@ -43,9 +45,3 @@ def update(id, adrs):
     cur.execute("UPDATE address SET website=? WHERE id=?",(adrs, id))
     conn.commit()
     conn.close()
-
-
-connect()
-update(1, "www.twitter.com")
-print(view())
-print(search("www.reddit.com"))

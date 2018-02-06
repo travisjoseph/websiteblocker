@@ -3,6 +3,27 @@ import backend
 from datetime import datetime as dt
 from tkinter import *
 
+def view_cmd():
+    lst_siteList.delete(0,END)
+    for row in backend.view():
+        lst_siteList.insert(END,row)
+def search_cmd():
+    lst_siteList.delete(0,END)
+    for row in backend.search(address.get()):
+        lst_siteList.insert(END, row)
+
+def add_cmd():
+    backend.insert(address.get())
+    lst_siteList.delete(0,END)
+    lst_siteList.insert(END, address.get())
+
+def delete_cmd():
+    rows=backend.search(address.get())
+    for i in rows:
+        backend.delete(i[0])
+
+
+
 tmpHosts="hosts"
 #hostsPath="/etc/hosts"
 redirect="127.0.0.1"
@@ -51,18 +72,20 @@ address=StringVar()
 ent_address=Entry(window, textvariable=address)
 ent_address.grid(row=4, column=0, rowspan=2, columnspan=3)
 #Add Address
-btn_addAddress=Button(window, text="Add")
-btn_addAddress.grid(row=6, column=0, columnspan=2)
+btn_addAddress=Button(window, text="Add", command=add_cmd)
+btn_addAddress.grid(row=6, column=0)
 #Update Address
 btn_addAddress=Button(window, text="Update")
+btn_addAddress.grid(row=6, column=1)
+#View Address
+btn_addAddress=Button(window, text="View", command=view_cmd)
 btn_addAddress.grid(row=6, column=2)
 #Remove Entry
-btn_removeEntry=Button(window, text="Delete")
+btn_removeEntry=Button(window, text="Delete", command=delete_cmd)
 btn_removeEntry.grid(row=5, column=3)
 #Search for website
-btn_searchEntry=Button(window, text="Search")
+btn_searchEntry=Button(window, text="Search", command=search_cmd)
 btn_searchEntry.grid(row=4, column=3)
-
 
 #Run Script
 btn_start=Button(window, text="Run")
@@ -88,3 +111,5 @@ window.mainloop()
 #                     file.write(line)
 #             file.truncate()
 #         time.sleep(300)
+
+#Functions
