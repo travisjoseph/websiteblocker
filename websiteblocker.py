@@ -18,9 +18,11 @@ def add_cmd():
     lst_siteList.insert(END, address.get())
 
 def delete_cmd():
-    rows=backend.search(address.get())
-    for i in rows:
+    needsDeleting=backend.search(address.get())
+    for i in needsDeleting:
         backend.delete(i[0])
+    for row in backend.search(address.get()):
+        lst_siteList.insert(END, row)
 
 
 
@@ -111,5 +113,3 @@ window.mainloop()
 #                     file.write(line)
 #             file.truncate()
 #         time.sleep(300)
-
-#Functions
